@@ -27,8 +27,14 @@ class Grade_model extends CI_Model {
         }
     }
     
+    // Мягкое удаление оценки
     function delete($id_oc) {
         $this->db->query("UPDATE ocenka SET delet = 1 WHERE id_oc = $id_oc");
+    }
+    
+    // Восстановление оценки
+    function restore($id_oc) {
+        $this->db->query("UPDATE ocenka SET delet = 0 WHERE id_oc = $id_oc");
     }
     
     function check_exists($id_stud, $discipline) {
@@ -41,13 +47,9 @@ class Grade_model extends CI_Model {
         return $query->result();
     }
     
-    function get_student_avg($id_stud) {
-        $query = $this->db->query("SELECT discipline.title, AVG(ocenka.ocenka) as avg_grade FROM ocenka, discipline WHERE ocenka.discipline = discipline.id_d AND ocenka.id_stud = $id_stud AND ocenka.delet = 0 GROUP BY ocenka.discipline");
-        return $query->result();
-    }
-    
-    function get_group_avg($group_title) {
-        $query = $this->db->query("SELECT discipline.title, AVG(ocenka.ocenka) as avg_grade FROM ocenka, discipline, users, groups WHERE ocenka.discipline = discipline.id_d AND ocenka.id_stud = users.id_u AND users.id_u = groups.id_stud AND groups.title = '$group_title' AND ocenka.delet = 0 GROUP BY ocenka.discipline");
+    // Получить все удаленные оценки
+    function get_deleted() {
+        $query = $this->db->query("SELECT ocenka.*, users.fio, discipline.title as disc_name FROM ocenka, users, discipline WHERE ocenka.id_stud = users.id_u AND ocenka.discipline = discipline.id_d AND ocenka.delet = 1");
         return $query->result();
     }
 }

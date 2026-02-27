@@ -42,6 +42,42 @@
                     </div>
                 </div>
                 
+                <!-- Статистика удаленных записей -->
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <div class="card bg-light">
+                            <div class="card-header bg-secondary text-white">
+                                <h6>Корзина (удаленные записи)</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="alert alert-danger text-center">
+                                            <strong>Пользователей:</strong> <?= $deleted_users ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="alert alert-danger text-center">
+                                            <strong>Групп:</strong> <?= $deleted_groups ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="alert alert-danger text-center">
+                                            <strong>Дисциплин:</strong> <?= $deleted_disc ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="alert alert-danger text-center">
+                                            <strong>Оценок:</strong> <?= $deleted_grades ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="<?= base_url('admin/trash') ?>" class="btn btn-danger">Перейти в корзину</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <div class="card">

@@ -15,8 +15,14 @@ class User_model extends CI_Model {
         return $query->row();
     }
     
-    function get_all_users() {
-        $query = $this->db->query("SELECT users.*, role.title as role_name FROM users, role WHERE users.role = role.id_r AND users.is_deleted = 0");
+    function get_all_users($show_deleted = false) {
+        if ($show_deleted) {
+            // Показываем всех, включая удаленных
+            $query = $this->db->query("SELECT users.*, role.title as role_name FROM users, role WHERE users.role = role.id_r");
+        } else {
+            // Только активных
+            $query = $this->db->query("SELECT users.*, role.title as role_name FROM users, role WHERE users.role = role.id_r AND users.is_deleted = 0");
+        }
         return $query->result();
     }
     
@@ -27,6 +33,22 @@ class User_model extends CI_Model {
     
     function get_teachers() {
         $query = $this->db->query("SELECT * FROM users WHERE role = 2 AND is_deleted = 0");
+        return $query->result();
+    }
+    
+    // Мягкое удаление пользователя
+    function soft_delete($id_u) {
+        $this->db->query("UPDATE users SET is_deleted = 1 WHERE id_u = $id_u");
+    }
+    
+    // Восстановление пользователя
+    function restore($id_u) {
+        $this->db->query("UPDATE users SET is_deleted = 0 WHERE id_u = $id_u");
+    }
+    
+    // Получить удаленных пользователей
+    function get_deleted_users() {
+        $query = $this->db->query("SELECT users.*, role.title as role_name FROM users, role WHERE users.role = role.id_r AND users.is_deleted = 1");
         return $query->result();
     }
 }

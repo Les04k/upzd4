@@ -16,8 +16,19 @@ class Group_model extends CI_Model {
         return $query->result();
     }
     
-    function get_group_info($title) {
-        $query = $this->db->query("SELECT * FROM groups WHERE title = '$title' AND is_deleted = 0 LIMIT 1");
-        return $query->row();
+    // Мягкое удаление группы (всех записей группы)
+    function soft_delete_group($title) {
+        $this->db->query("UPDATE groups SET is_deleted = 1 WHERE title = '$title'");
+    }
+    
+    // Восстановление группы
+    function restore_group($title) {
+        $this->db->query("UPDATE groups SET is_deleted = 0 WHERE title = '$title'");
+    }
+    
+    // Получить удаленные группы
+    function get_deleted_groups() {
+        $query = $this->db->query("SELECT DISTINCT(title) FROM groups WHERE is_deleted = 1");
+        return $query->result();
     }
 }
