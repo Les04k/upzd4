@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5>Панель администратора</h5>
+            </div>
+            <div class="card-body">
+                <h5>Добро пожаловать, <?= $user->fio ?>!</h5>
+                
+                <div class="row mt-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body text-center">
+                                <h6>Преподаватели</h6>
+                                <h3><?= $teachers_count ?></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-white bg-success">
+                            <div class="card-body text-center">
+                                <h6>Студенты</h6>
+                                <h3><?= $students_count ?></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-white bg-warning">
+                            <div class="card-body text-center">
+                                <h6>Группы</h6>
+                                <h3><?= $groups_count ?></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-white bg-info">
+                            <div class="card-body text-center">
+                                <h6>Дисциплины</h6>
+                                <h3><?= $disc_count ?></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Управление
+                            </div>
+                            <div class="card-body">
+                                <a href="<?= base_url('admin/users') ?>" class="btn btn-primary w-100 mb-2">Список пользователей</a>
+                                <a href="<?= base_url('admin/add_user') ?>" class="btn btn-success w-100">Добавить пользователя</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
